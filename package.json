@@ -1,13 +1,6 @@
 {
-  "name": "express-typescript-starter",
+  "name": "lgtm-in-clone-backend",
   "version": "0.1.0",
-  "description": "A starting point for Node.js express apps with TypeScript",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Microsoft/TypeScript-Node-Starter"
-  },
-  "author": "Bowden Kelly",
-  "license": "MIT",
   "scripts": {
     "start": "npm run serve",
     "build": "npm run build-sass && npm run build-ts && npm run lint && npm run copy-static-assets",
