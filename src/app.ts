@@ -1,13 +1,9 @@
 import express from "express";
-import compression from "compression";  // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
-import lusca from "lusca";
 import mongo from "connect-mongo";
-import flash from "express-flash";
 import path from "path";
 import mongoose from "mongoose";
-import passport from "passport";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
@@ -32,7 +28,6 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUni
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
-app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -44,11 +39,6 @@ app.use(session({
         autoReconnect: true
     })
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-app.use(lusca.xframe("SAMEORIGIN"));
-app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
