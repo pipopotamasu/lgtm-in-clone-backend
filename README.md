@@ -1,1 +1,1 @@
-# lgtm.in clone backend
+# API only boilerplate
