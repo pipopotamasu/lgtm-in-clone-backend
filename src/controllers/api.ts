@@ -10,9 +10,7 @@ import { UserDocument } from "../models/User";
  * List of API examples.
  */
 export const getApi = (req: Request, res: Response) => {
-    res.render("api/index", {
-        title: "API Examples"
-    });
+    res.json('api root');
 };
 
 /**
