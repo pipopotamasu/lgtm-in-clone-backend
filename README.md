@@ -1,1 +1,1 @@
-# API only boilerplate
+# API only boilerplate for Express / TypeScript / Mongodb
