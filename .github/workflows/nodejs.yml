@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build-node:
@@ -12,6 +12,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Start MongoDB
+        uses: superchargejs/mongodb-github-action@1.1.0
       - name: Get yarn cache directory
         id: yarn-cache
         run: |
