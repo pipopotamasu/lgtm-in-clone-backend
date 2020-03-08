@@ -1,12 +1,9 @@
 "use strict";
 
 import { Response, Request } from "express";
+import { Post } from "@models/Post";
 
-
-/**
- * GET /api
- * List of API examples.
- */
-export const getPosts = (req: Request, res: Response) => {
-    res.json('get posts');
+export const getPosts = async (req: Request, res: Response) => {
+    const result = await Post.find();
+    res.json(result);
 };
