@@ -4,9 +4,9 @@ export type PostDocument = mongoose.Document & {
   id: number;
   src: string;
   userId: number;
-  upvoted: boolean,
-  reported: boolean,
-  bookmarked: boolean
+  upvoted: boolean;
+  reported: boolean;
+  bookmarked: boolean;
 };
 
 const postSchema = new mongoose.Schema({

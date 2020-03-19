@@ -1,7 +1,7 @@
 import errorHandler from "errorhandler";
-import moduleAlias from 'module-alias';
+import moduleAlias from "module-alias";
 
-moduleAlias()
+moduleAlias();
 
 import app from "./app";
 
