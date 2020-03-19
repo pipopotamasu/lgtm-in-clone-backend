@@ -9,7 +9,8 @@ import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 const MongoStore = mongo(session);
 
 // Controllers (route handlers)
-import * as apiController from "./controllers/api";
+import * as apiController from "./controllers/v1/api";
+import * as postsController from "./controllers/v1/posts";
 
 // Create Express server
 const app = express();
@@ -42,5 +43,6 @@ app.use(session({
  * API examples routes.
  */
 app.get("/api/v1", apiController.getApi);
+app.get("/api/v1/posts", postsController.getPosts);
 
 export default app;
