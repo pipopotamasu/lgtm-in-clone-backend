@@ -14,5 +14,9 @@ module.exports = {
     testMatch: [
         "**/test/**/*.test.(ts|js)"
     ],
-    testEnvironment: "node"
+    testEnvironment: "node",
+    moduleNameMapper: {
+        "^@models/(.+)": "<rootDir>/src/models/$1",
+        "^@util/(.+)": "<rootDir>/src/util/$1"
+      },
 };
