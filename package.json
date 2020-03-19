@@ -15,7 +15,9 @@
     "debug": "yarn build && yarn watch-debug",
     "serve-debug": "nodemon --inspect dist/server.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"yarn serve-debug\"",
-    "start:mongodb": "mongod"
+    "start:mongodb": "mongod",
+    "seed": "seedgoose seed",
+    "reseed": "seedgoose reseed"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
@@ -52,6 +54,7 @@
     "eslint": "^6.4.0",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
+    "seedgoose": "^2.0.2",
     "supertest": "^4.0.2",
     "ts-jest": "^25.2.1",
     "ts-node": "^8.4.1",
