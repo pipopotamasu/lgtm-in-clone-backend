@@ -6,7 +6,7 @@ const prod = ENVIRONMENT === "production"; // Anything else is treated as 'dev'
 
 if (prod) {
   dotenv.config({ path: ".env.prod" });
-} else if (ENVIRONMENT === 'test') {
+} else if (ENVIRONMENT === "test") {
   dotenv.config({ path: ".env.test" });
 } else {
   dotenv.config({ path: ".env.dev" });

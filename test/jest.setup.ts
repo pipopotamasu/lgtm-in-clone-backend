@@ -7,9 +7,9 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(process.env["MONGODB_URI_LOCAL"]);
 mongoose.connection
-  .once('open', () => { console.log('connected mongodb') })
-  .on('error', (error) => {
-    console.warn('Warning', error);
+  .once("open", () => { console.log("connected mongodb"); })
+  .on("error", (error) => {
+    console.warn("Warning", error);
   });
 
 beforeEach((done) => {
