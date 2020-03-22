@@ -66,7 +66,14 @@ describe("Post /api", () => {
     })
 
     describe('when new user', () => {
-
+      it('return user', () => {
+        return request(app).post("/api/v1/signup")
+        .send({email: 'test@example.com', password: 'password', confirmPassword: 'password'})
+        .expect(201)
+        .then(res => {
+          expect(res.body.user.email).toBe('test@example.com')
+        })
+      })
     })
   })
 });

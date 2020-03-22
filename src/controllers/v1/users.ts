@@ -16,7 +16,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        res.status(400).json(errors)
+        return res.status(400).json(errors)
     }
 
     const user = new User({
@@ -27,10 +27,11 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     User.findOne({ email: req.body.email }, (err, existingUser) => {
         if (err) { return next(err); }
         if (existingUser) {
-            res.status(409).json({ errors: [{ msg: 'already exists user' }] })
+            return res.status(409).json({ errors: [{ msg: 'already exists user' }] })
         }
         user.save((err) => {
             if (err) { return next(err); }
+            return res.status(201).json({ user })
             // req.logIn(user, (err) => {
             //     if (err) {
             //         return next(err);
