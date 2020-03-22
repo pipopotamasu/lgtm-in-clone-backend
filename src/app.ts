@@ -11,6 +11,7 @@ const MongoStore = mongo(session);
 // Controllers (route handlers)
 import * as apiController from "./controllers/v1/api";
 import * as postsController from "./controllers/v1/posts";
+import * as usersController from "./controllers/v1/users";
 
 // Create Express server
 const app = express();
@@ -44,5 +45,6 @@ app.use(session({
  */
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
+app.post("/api/v1/signup", usersController.postSignup);
 
 export default app;
