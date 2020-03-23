@@ -1,8 +1,6 @@
-import crypto from "crypto";
-import { User, UserDocument, AuthToken } from "@models/User";
+import { User } from "@models/User";
 import { Request, Response, NextFunction } from "express";
-import { WriteError } from "mongodb";
-import { check, sanitize, validationResult } from "express-validator";
+import { check, validationResult } from "express-validator";
 
 /**
  * POST /signup
@@ -31,13 +29,12 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
     }
     user.save((err) => {
       if (err) { return next(err); }
-      return res.status(201).json({ user });
-      // req.logIn(user, (err) => {
-      //     if (err) {
-      //         return next(err);
-      //     }
-      //     res.redirect("/");
-      // });
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.status(500).json({ errors: [err] });
+        }
+        return res.status(201).json({ user });
+      });
     });
   });
 };

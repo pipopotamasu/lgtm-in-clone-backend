@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import mongo from "connect-mongo";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
+import passport from "passport";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
 const MongoStore = mongo(session);
@@ -12,6 +13,9 @@ const MongoStore = mongo(session);
 import * as apiController from "./controllers/v1/api";
 import * as postsController from "./controllers/v1/posts";
 import * as usersController from "./controllers/v1/users";
+
+// API keys and Passport configuration
+import * as passportConfig from "./config/passport";
 
 // Create Express server
 const app = express();
@@ -40,11 +44,12 @@ app.use(session({
     autoReconnect: true
   })
 }));
-/**
- * API examples routes.
- */
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
 app.post("/api/v1/signup", usersController.postSignup);
+app.get("/api/v1/require_auth_path", passportConfig.isAuthenticated, apiController.getApi);
 
 export default app;

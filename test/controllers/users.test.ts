@@ -66,11 +66,12 @@ describe("Post /api", () => {
     });
 
     describe("when new user", () => {
-      it("return user", () => {
+      fit("return user", () => {
         return request(app).post("/api/v1/signup")
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(201)
           .then(res => {
+            console.log(res.body);
             expect(res.body.user.email).toBe("test@example.com");
           });
       });
