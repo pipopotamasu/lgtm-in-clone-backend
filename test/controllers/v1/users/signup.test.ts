@@ -7,7 +7,7 @@ describe("Post /api/v1/signup", () => {
     describe("email", () => {
       describe("invalid email form", () => {
         it("returns error", async () => {
-          request(app).post("/api/v1/signup")
+          return request(app).post("/api/v1/signup")
             .send({email: "foobar", password: "password", confirmPassword: "password"})
             .expect(400)
             .then(res => {
@@ -22,7 +22,7 @@ describe("Post /api/v1/signup", () => {
     describe("password", () => {
       describe("invalid password length", () => {
         it("returns error", async () => {
-          request(app).post("/api/v1/signup")
+          return request(app).post("/api/v1/signup")
             .send({email: "test@example.com", password: "pas", confirmPassword: "pas"})
             .expect(400)
             .then(res => {
@@ -37,7 +37,7 @@ describe("Post /api/v1/signup", () => {
     describe("confirm password", () => {
       describe("do not match with password", () => {
         it("returns error", async () => {
-          request(app).post("/api/v1/signup")
+          return request(app).post("/api/v1/signup")
             .send({email: "test@example.com", password: "password", confirmPassword: "passwordpassword"})
             .expect(400)
             .then(res => {
@@ -54,7 +54,7 @@ describe("Post /api/v1/signup", () => {
     describe("when exits user", () => {
       it("returns error", async () => {
         await User.create({ email: "test@example.com" });
-        request(app).post("/api/v1/signup")
+        return request(app).post("/api/v1/signup")
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(409)
           .then(res => {
@@ -67,7 +67,7 @@ describe("Post /api/v1/signup", () => {
 
     describe("when new user", () => {
       it("returns user", () => {
-        request(app).post("/api/v1/signup")
+        return request(app).post("/api/v1/signup")
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(201)
           .then(res => {

@@ -7,7 +7,7 @@ describe("Post /api/v1/login", () => {
     describe("email", () => {
       describe("invalid email form", () => {
         it("returns error", async () => {
-          request(app).post("/api/v1/login")
+          return request(app).post("/api/v1/login")
             .send({email: "foobar", password: "password"})
             .expect(400)
             .then(res => {
@@ -22,7 +22,7 @@ describe("Post /api/v1/login", () => {
     describe("password", () => {
       describe("invalid password length", () => {
         it("returns error", async () => {
-          request(app).post("/api/v1/login")
+          return request(app).post("/api/v1/login")
             .send({ email: "test@example.com", password: "pas" })
             .expect(400)
             .then(res => {
@@ -38,7 +38,7 @@ describe("Post /api/v1/login", () => {
   describe("login", () => {
     describe("not registered account", () => {
       it("returns error", () => {
-        request(app).post("/api/v1/login")
+        return request(app).post("/api/v1/login")
           .send({email: "test@example.com", password: "password"})
           .expect(401)
           .then(res => {
@@ -52,7 +52,7 @@ describe("Post /api/v1/login", () => {
     describe("when exits user", () => {
       it("returns user", async () => {
         const user = await User.create({ email: "test@example.com", password: "password" });
-        request(app).post("/api/v1/login")
+        return request(app).post("/api/v1/login")
           .send({email: "test@example.com", password: "password"})
           .expect(200)
           .then(res => {
