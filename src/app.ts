@@ -50,6 +50,7 @@ app.use(passport.session());
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
 app.post("/api/v1/signup", usersController.postSignup);
+app.post("/api/v1/login", usersController.postLogin);
 app.get("/api/v1/require_auth_path", passportConfig.isAuthenticated, apiController.getApi);
 
 export default app;
