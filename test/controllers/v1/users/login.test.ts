@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "@src/app";
 import { User } from "@models/User";
 
-describe("Post /api/v1/postLogin", () => {
+describe("Post /api/v1/login", () => {
   describe("validation errors", () => {
     describe("email", () => {
       describe("invalid email form", () => {
