@@ -2,7 +2,6 @@ import { User, UserDocument } from "@models/User";
 import { Request, Response, NextFunction } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
-import { IVerifyOptions } from "passport-local";
 
 /**
  * POST /login
