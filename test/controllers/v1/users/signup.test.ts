@@ -66,7 +66,7 @@ describe("Post /api/v1/signup", () => {
     });
 
     describe("when new user", () => {
-      fit("return user", () => {
+      it("return user", () => {
         return request(app).post("/api/v1/signup")
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(201)

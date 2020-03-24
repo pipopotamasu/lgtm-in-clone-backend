@@ -12,24 +12,24 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
 
-	const errors = validationResult(req);
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(400).json(errors);
   }
 
-	passport.authenticate("local", (err: Error, user: UserDocument) => {
-		if (err) { return res.status(500).json({ errors: [err] }); }
-		if (!user) {
-			return res.status(401).json({ errors: [{ msg: "invalid account" }] });
-		}
-			req.logIn(user, (err) => {
-				if (err) {
-					return res.status(500).json({ errors: [err] });
-				}
-				return res.status(200).json({ user });
-			});
-	})(req, res);
+  passport.authenticate("local", async (err: Error, user: UserDocument) => {
+    if (err) { return res.status(500).json({ errors: [err] }); }
+    if (!user) {
+      return res.status(401).json({ errors: [{ msg: "invalid account" }] });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ errors: [err] });
+      }
+      return res.status(200).json({ user });
+    });
+  })(req, res);
 };
 
 /**
