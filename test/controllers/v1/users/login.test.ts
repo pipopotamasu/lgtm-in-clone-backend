@@ -6,7 +6,7 @@ describe("Post /api/v1/postLogin", () => {
   describe("validation errors", () => {
     describe("email", () => {
       describe("invalid email form", () => {
-        it("return error", async () => {
+        it("returns error", async () => {
           request(app).post("/api/v1/login")
             .send({email: "foobar", password: "password"})
             .expect(400)
@@ -21,7 +21,7 @@ describe("Post /api/v1/postLogin", () => {
 
     describe("password", () => {
       describe("invalid password length", () => {
-        it("return error", async () => {
+        it("returns error", async () => {
           request(app).post("/api/v1/login")
             .send({ email: "test@example.com", password: "pas" })
             .expect(400)

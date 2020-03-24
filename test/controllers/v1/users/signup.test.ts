@@ -6,7 +6,7 @@ describe("Post /api/v1/signup", () => {
   describe("validation errors", () => {
     describe("email", () => {
       describe("invalid email form", () => {
-        it("return error", async () => {
+        it("returns error", async () => {
           request(app).post("/api/v1/signup")
             .send({email: "foobar", password: "password", confirmPassword: "password"})
             .expect(400)
@@ -21,7 +21,7 @@ describe("Post /api/v1/signup", () => {
 
     describe("password", () => {
       describe("invalid password length", () => {
-        it("return error", async () => {
+        it("returns error", async () => {
           request(app).post("/api/v1/signup")
             .send({email: "test@example.com", password: "pas", confirmPassword: "pas"})
             .expect(400)
@@ -36,7 +36,7 @@ describe("Post /api/v1/signup", () => {
 
     describe("confirm password", () => {
       describe("do not match with password", () => {
-        it("return error", async () => {
+        it("returns error", async () => {
           request(app).post("/api/v1/signup")
             .send({email: "test@example.com", password: "password", confirmPassword: "passwordpassword"})
             .expect(400)
@@ -66,7 +66,7 @@ describe("Post /api/v1/signup", () => {
     });
 
     describe("when new user", () => {
-      it("return user", () => {
+      it("returns user", () => {
         request(app).post("/api/v1/signup")
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(201)
