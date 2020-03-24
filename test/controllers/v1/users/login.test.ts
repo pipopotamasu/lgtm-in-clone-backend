@@ -56,9 +56,8 @@ describe("Post /api/v1/login", () => {
           .send({email: "test@example.com", password: "password"})
           .expect(200)
           .then(res => {
-            expect(res.body.user.email).toBe(
-              user.email,
-            );
+            expect(res.body.user.id).toBe(user.id);
+            expect(res.body.user.email).toBe(user.email);
           });
       });
     });

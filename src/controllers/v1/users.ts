@@ -26,7 +26,7 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
       if (err) {
         return res.status(500).json({ errors: [err] });
       }
-      return res.status(200).json({ user });
+      return res.status(200).json({ user: user.response() });
     });
   })(req, res);
 };
@@ -62,7 +62,7 @@ export const postSignup = async (req: Request, res: Response, next: NextFunction
         if (err) {
           return res.status(500).json({ errors: [err] });
         }
-        return res.status(201).json({ user });
+        return res.status(201).json({ user: user.response() });
       });
     });
   });
