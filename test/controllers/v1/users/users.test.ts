@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "@src/app";
 import { User } from "@models/User";
 
-describe("Post /api", () => {
+describe("Post /api/v1/signup", () => {
   describe("validation errors", () => {
     describe("email", () => {
       describe("invalid email form", () => {
@@ -71,7 +71,6 @@ describe("Post /api", () => {
           .send({email: "test@example.com", password: "password", confirmPassword: "password"})
           .expect(201)
           .then(res => {
-            console.log(res.body);
             expect(res.body.user.email).toBe("test@example.com");
           });
       });
