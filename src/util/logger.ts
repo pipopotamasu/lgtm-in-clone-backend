@@ -11,7 +11,7 @@ const options: winston.LoggerOptions = {
 
 const logger = winston.createLogger(options);
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "test" ) {
   logger.debug("Logging initialized at debug level");
 }
 

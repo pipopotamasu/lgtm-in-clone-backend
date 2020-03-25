@@ -16,7 +16,7 @@ export type UserDocument = mongoose.Document & {
 type comparePasswordFunction = (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 
 type UserResponse = {
-  id: string
+  id: string;
   email: string;
 }
 
@@ -61,7 +61,7 @@ userSchema.methods.response = function (this: UserDocument) {
   return {
     id: this.id,
     email: this.email
-  }
+  };
 };
 
 export const User = mongoose.model<UserDocument>("User", userSchema);
