@@ -32,6 +32,15 @@ export const postLogin = async (req: Request, res: Response, next: NextFunction)
 };
 
 /**
+ * GET /logout
+ * Log out.
+ */
+export const logout = (req: Request, res: Response) => {
+  req.logout();
+  return res.status(200);
+};
+
+/**
  * POST /signup
  * Create a new local account.
  */
