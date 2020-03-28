@@ -7,7 +7,7 @@ import passport from "passport";
  * POST /login
  * Sign in using email and password.
  */
-export const postLogin = async (req: Request, res: Response, next: NextFunction) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
 
@@ -44,7 +44,7 @@ export const logout = (req: Request, res: Response) => {
  * POST /signup
  * Create a new local account.
  */
-export const postSignup = async (req: Request, res: Response, next: NextFunction) => {
+export const signup = async (req: Request, res: Response, next: NextFunction) => {
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
   await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
