@@ -81,11 +81,11 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
  * DELETE /account/delete
  * Delete user account.
  */
-export const deleteAccount = (req: Request, res: Response) => {
+export const deleteAccount = async (req: Request, res: Response) => {
   const user = req.user as UserDocument;
   User.remove({ _id: user.id }, (err) => {
     if (err) { return res.status(500).json({ errors: [err] }); }
     req.logout();
-    return res.status(200).json({ msg: "Your account was deleted" });
+    return res.status(200).json({ msgs: ["Your account was deleted"] });
   });
 };
