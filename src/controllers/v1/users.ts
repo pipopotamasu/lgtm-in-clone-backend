@@ -35,9 +35,9 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
  * GET /logout
  * Log out.
  */
-export const logout = (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   req.logout();
-  return res.status(200);
+  return res.status(200).json();
 };
 
 /**
