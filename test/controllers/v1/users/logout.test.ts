@@ -13,7 +13,7 @@ describe("Get /api/v1/logout", () => {
     });
   });
 
-  describe("has not already loggedin", () => {
+  describe("has already loggedin", () => {
     it("returns user", async () => {
       let loginCookie;
       await User.create({ email: "test@example.com", password: "password" });
