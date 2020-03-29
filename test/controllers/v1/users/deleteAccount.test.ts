@@ -30,7 +30,7 @@ describe("Delete /api/v1/account/delete", () => {
         .then((res) => {
           expect(res.body.msgs[0]).toBe("Your account was deleted");
           User.findOne({ email: "test@example.com" }, (err, user) => {
-            expect(user).toBe(undefined);
+            expect(user).toBe(null);
           });
         });
     });
