@@ -59,7 +59,7 @@ describe("Post /api/v1/signup", () => {
           .expect(409)
           .then(res => {
             expect(res.body.errors[0]).toEqual(
-              { msg: "already exists user" }
+              { msg: "Already exists user" }
             );
           });
       });

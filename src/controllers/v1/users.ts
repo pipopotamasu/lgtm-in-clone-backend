@@ -63,7 +63,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return res.status(500).json({ errors: [err] }); }
     if (existingUser) {
-      return res.status(409).json({ errors: [{ msg: "already exists user" }] });
+      return res.status(409).json({ errors: [{ msg: "Already exists user" }] });
     }
     user.save((err) => {
       if (err) { return res.status(500).json({ errors: [err] }); }
@@ -74,5 +74,18 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
         return res.status(201).json({ user: user.response() });
       });
     });
+  });
+};
+
+/**
+ * DELETE /account/delete
+ * Delete user account.
+ */
+export const deleteAccount = (req: Request, res: Response) => {
+  const user = req.user as UserDocument;
+  User.remove({ _id: user.id }, (err) => {
+    if (err) { return res.status(500).json({ errors: [err] }); }
+    req.logout();
+    return res.status(200).json({ msg: "Your account was deleted" });
   });
 };
