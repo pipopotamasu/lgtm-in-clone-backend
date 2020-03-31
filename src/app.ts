@@ -50,6 +50,7 @@ app.use(passport.session());
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
 app.post("/api/v1/signup", usersController.signup);
+app.post("/api/v1/signupWithMailActivation", usersController.signupWithMailActivation);
 app.post("/api/v1/login", usersController.login);
 app.get("/api/v1/logout", passportConfig.isAuthenticated, usersController.logout);
 app.delete("/api/v1/account/delete", passportConfig.isAuthenticated, usersController.deleteAccount);
