@@ -23,14 +23,17 @@ type UserResponse = {
 
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
-  password: String,
+  password: { type: String, default: "" },
   passwordResetToken: String,
   passwordResetExpires: Date,
   activated: {
     type: Boolean,
     default: false
   },
-  accountActivationToken: String,
+  accountActivationToken: {
+    type: String,
+    default: ""
+  },
 }, { timestamps: true });
 
 /**

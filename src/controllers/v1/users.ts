@@ -3,7 +3,9 @@ import { Request, Response, NextFunction } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
 import { createTransporter } from "../../config/nodemailer";
-import { MAIL_SENDER } from "@util/secrets";
+import { MAIL_SENDER, ENVIRONMENT } from "@util/secrets";
+import { v4 as uuidv4 } from "uuid";
+import { frontendOrigin } from "../../config/app";
 
 /**
  * POST /login
@@ -81,7 +83,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 /**
- * POST /signupWithMailActivation
+ * POST /signup_with_mail_activation
  * Create a new local account.
  */
 export const signupWithMailActivation = async (req: Request, res: Response, next: NextFunction) => {
@@ -98,7 +100,8 @@ export const signupWithMailActivation = async (req: Request, res: Response, next
   const user = new User({
     email: req.body.email,
     password: req.body.password,
-    activated: true
+    activated: true,
+    accountActivationToken: uuidv4()
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -113,7 +116,7 @@ export const signupWithMailActivation = async (req: Request, res: Response, next
         from: MAIL_SENDER,
         to: user.email,
         subject: "Activation mail for lgtm.in clone",
-        text: "Click here: some token"
+        text: `Click here within 1 hour: ${frontendOrigin(ENVIRONMENT)}/account_activation?token=${user.accountActivationToken}`
       };
 
       createTransporter().sendMail(message, (err) => {
