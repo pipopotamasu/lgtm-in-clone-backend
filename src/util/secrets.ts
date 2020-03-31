@@ -1,7 +1,8 @@
 import logger from "./logger";
 import dotenv from "dotenv";
+import { NODE_ENV } from "app";
 
-export const ENVIRONMENT = process.env.NODE_ENV;
+export const ENVIRONMENT = process.env.NODE_ENV as NODE_ENV;
 const prod = ENVIRONMENT === "production"; // Anything else is treated as 'dev'
 
 if (prod) {

@@ -23,7 +23,7 @@ type UserResponse = {
 
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
-  password: { type: String, default: '' },
+  password: { type: String, default: "" },
   passwordResetToken: String,
   passwordResetExpires: Date,
   activated: {
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   accountActivationToken: {
     type: String,
-    default: ''
+    default: ""
   },
 }, { timestamps: true });
 
