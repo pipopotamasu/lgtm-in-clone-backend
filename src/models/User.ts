@@ -7,7 +7,8 @@ export type UserDocument = mongoose.Document & {
     passwordResetToken: string;
     passwordResetExpires: Date;
 
-    tokens: AuthToken[];
+    activated: boolean;
+    accountActivationToken: string;
 
     comparePassword: comparePasswordFunction;
     response: () => UserResponse;
@@ -20,17 +21,16 @@ type UserResponse = {
   email: string;
 }
 
-export interface AuthToken {
-    accessToken: string;
-    kind: string;
-}
-
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  tokens: Array,
+  activated: {
+    type: Boolean,
+    default: false
+  },
+  accountActivationToken: String,
 }, { timestamps: true });
 
 /**

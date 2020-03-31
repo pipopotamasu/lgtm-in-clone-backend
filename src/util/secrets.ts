@@ -12,6 +12,12 @@ if (prod) {
   dotenv.config({ path: ".env.dev" });
 }
 
+export const MAILER_HOST = process.env["MAILER_HOST"];
+export const MAILER_PORT = process.env["MAILER_PORT"];
+export const MAILER_USER = process.env["MAILER_USER"];
+export const MAILER_PATHWORD = process.env["MAILER_PATHWORD"];
+export const MAIL_SENDER = process.env["MAIL_SENDER"];
+
 export const SESSION_SECRET = process.env["SESSION_SECRET"];
 export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];
 
