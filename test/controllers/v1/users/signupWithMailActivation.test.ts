@@ -2,6 +2,7 @@ import request from "supertest";
 import app from "@src/app";
 import { User } from "@models/User";
 
+// TODO: set your mail credentials
 describe.skip("Post /api/v1/signupWithMailActivation", () => {
   describe("validation errors", () => {
     describe("email", () => {
