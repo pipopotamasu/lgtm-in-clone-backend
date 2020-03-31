@@ -83,7 +83,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 /**
- * POST /signupWithMailActivation
+ * POST /signup_with_mail_activation
  * Create a new local account.
  */
 export const signupWithMailActivation = async (req: Request, res: Response, next: NextFunction) => {
