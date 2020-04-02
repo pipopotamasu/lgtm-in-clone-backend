@@ -1,6 +1,11 @@
 {
+  "env": {
+    "node": true,
+    "jest/globals": true
+  },
+  "plugins": ["jest"],
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:@typescript-eslint/recommended"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -9,6 +14,7 @@
     "indent": ["error", 2],
     "semi": ["error", "always"],
     "quotes": ["error", "double"],
+    "eol-last": ["error", "always"],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": 1,
     "@typescript-eslint/no-inferrable-types": [
