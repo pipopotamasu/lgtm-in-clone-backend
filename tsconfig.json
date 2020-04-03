@@ -13,7 +13,8 @@
       "*": ["node_modules/*", "src/types/*"],
       "@models/*": ["src/models/*"],
       "@util/*": ["src/util/*"],
-      "@src/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "@config/*": ["src/config/*"]
     }
   },
   "include": ["src/**/*", "test/**/*"]

@@ -2,10 +2,10 @@ import { User, UserDocument } from "@models/User";
 import { Request, Response, NextFunction } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
-import { createTransporter } from "../../config/nodemailer";
+import { createTransporter } from "@config/nodemailer";
 import { MAIL_SENDER, ENVIRONMENT } from "@util/secrets";
 import { v4 as uuidv4 } from "uuid";
-import { frontendOrigin } from "../../config/app";
+import { frontendOrigin } from "@config/app";
 
 /**
  * POST /login

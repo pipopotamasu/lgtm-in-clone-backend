@@ -20,6 +20,7 @@ module.exports = {
   moduleNameMapper: {
     "^@models/(.+)": "<rootDir>/src/models/$1",
     "^@src/(.+)": "<rootDir>/src/$1",
-    "^@util/(.+)": "<rootDir>/src/util/$1"
+    "^@util/(.+)": "<rootDir>/src/util/$1",
+    "^@config/(.+)": "<rootDir>/src/config/$1"
   },
 };
