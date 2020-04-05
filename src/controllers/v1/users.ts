@@ -64,22 +64,23 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     password: req.body.password
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return res.status(500).json({ errors: [err] }); }
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
       return res.status(409).json({ errors: [{ msg: "Already exists user" }] });
     }
-    user.save((err) => {
-      if (err) { return res.status(500).json({ errors: [err] }); }
 
-      req.logIn(user, (err) => {
-        if (err) {
-          return res.status(500).json({ errors: [err] });
-        }
-        return res.status(201).json({ user: user.response() });
-      });
+    await user.save();
+
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ errors: [err] });
+      }
+      return res.status(201).json({ user: user.response() });
     });
-  });
+  } catch (err) {
+    return res.status(500).json({ errors: [err] });
+  }
 };
 
 /**
@@ -104,31 +105,33 @@ export const signupWithMailActivation = async (req: Request, res: Response, next
     accountActivationToken: uuidv4()
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return res.status(500).json({ errors: [err] }); }
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
+
     if (existingUser) {
       return res.status(409).json({ errors: [{ msg: "Already exists user" }] });
     }
-    user.save((err) => {
-      if (err) { return res.status(500).json({ errors: [err] }); }
 
-      const message = {
-        from: MAIL_SENDER,
-        to: user.email,
-        subject: "Activation mail for lgtm.in clone",
-        text: `Click here within 1 hour: ${frontendOrigin(ENVIRONMENT)}/account_activation?token=${user.accountActivationToken}`
-      };
+    await user.save();
 
-      createTransporter().sendMail(message, (err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ errors: [err] });
-        }
+    const message = {
+      from: MAIL_SENDER,
+      to: user.email,
+      subject: "Activation mail for lgtm.in clone",
+      text: `Click here within 1 hour: ${frontendOrigin(ENVIRONMENT)}/account_activation?token=${user.accountActivationToken}`
+    };
 
-        return res.status(201).json({ msgs: ["check your email address to activate your account"] });
-      });
+    createTransporter().sendMail(message, (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ errors: [err] });
+      }
+
+      return res.status(201).json({ msgs: ["check your email address to activate your account"] });
     });
-  });
+  } catch (err) {
+    return res.status(500).json({ errors: [err] });
+  }
 };
 
 /**
@@ -159,9 +162,11 @@ export const activateAccount = async (req: Request, res: Response) => {
  */
 export const deleteAccount = async (req: Request, res: Response) => {
   const user = req.user as UserDocument;
-  User.remove({ _id: user.id }, (err) => {
-    if (err) { return res.status(500).json({ errors: [err] }); }
+  try {
+    await User.remove({ _id: user.id });
     req.logout();
     return res.status(200).json({ msgs: ["Your account was deleted"] });
-  });
+  } catch (err) {
+    return res.status(500).json({ errors: [err] });
+  }
 };
