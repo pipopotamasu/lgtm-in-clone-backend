@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "@src/app";
 import { User } from "@models/User";
 
-describe("GET /account/activation", () => {
+describe.skip("GET /account/activation", () => {
   describe("errors", () => {
     describe("not exist user", () => {
       it("returns erros", () => {
