@@ -132,6 +132,28 @@ export const signupWithMailActivation = async (req: Request, res: Response, next
 };
 
 /**
+ * GET /account/activation
+ * Activate user account.
+ */
+export const activateAccount = async (req: Request, res: Response) => {
+  // activation tokenの取得
+  const activationToken = req.query.activation_token;
+  try {
+    const user = await User.findOne({ accountActivationToken: activationToken, activated: false });
+
+    if (!user) {
+      return res.status(404).json({ errors: ["Does not exist user."] });
+    }
+
+    await user.update({ activated: true });
+
+    return res.status(200).json();
+  } catch (err) {
+    return res.status(500).json({ errors: [err] });
+  }
+};
+
+/**
  * DELETE /account/delete
  * Delete user account.
  */

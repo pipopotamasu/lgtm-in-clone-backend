@@ -32,6 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   accountActivationToken: {
     type: String,
+    // unique: true, // TODO: enable unique restriction when this feature enabled
     default: ""
   },
 }, { timestamps: true });
