@@ -24,7 +24,7 @@ describe("GET /account/activation", () => {
       return request(app).get("/api/v1/account/activation?activation_token=foobar")
         .expect(200)
         .then(async () => {
-          const activatedUser = await User.findById(user._id);
+          const activatedUser = await User.findById(user.id);
           expect(activatedUser.activated).toBe(true);
         });
     });
