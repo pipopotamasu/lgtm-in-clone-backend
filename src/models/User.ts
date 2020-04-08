@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt-nodejs";
 import mongoose from "mongoose";
 
+export const ACCOUNT_ACTIVATION_EXPIRES_HOUR = 2;
+
 export type UserDocument = mongoose.Document & {
     email: string;
     password: string;
@@ -9,6 +11,7 @@ export type UserDocument = mongoose.Document & {
 
     activated: boolean;
     accountActivationToken: string;
+    activationTokenPublishedAt: Date;
 
     comparePassword: comparePasswordFunction;
     response: () => UserResponse;
@@ -35,6 +38,7 @@ const userSchema = new mongoose.Schema({
     // unique: true, // TODO: enable unique restriction when this feature enabled
     default: ""
   },
+  activationTokenPublishedAt: Date,
 }, { timestamps: true });
 
 /**

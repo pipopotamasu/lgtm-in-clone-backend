@@ -24,6 +24,7 @@
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
     "connect-mongo": "^3.0.0",
+    "date-fns": "^2.11.1",
     "dotenv": "^8.2.0",
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",

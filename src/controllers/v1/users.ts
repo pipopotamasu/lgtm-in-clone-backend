@@ -1,4 +1,4 @@
-import { User, UserDocument } from "@models/User";
+import { User, UserDocument, ACCOUNT_ACTIVATION_EXPIRES_HOUR } from "@models/User";
 import { Request, Response, NextFunction } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
@@ -6,7 +6,7 @@ import { createTransporter } from "@config/nodemailer";
 import { MAIL_SENDER, ENVIRONMENT } from "@util/secrets";
 import { v4 as uuidv4 } from "uuid";
 import { frontendOrigin } from "@config/app";
-
+import { addHours, isAfter } from "date-fns";
 /**
  * POST /login
  * Sign in using email and password.
@@ -102,7 +102,8 @@ export const signupWithMailActivation = async (req: Request, res: Response, next
     email: req.body.email,
     password: req.body.password,
     activated: true,
-    accountActivationToken: uuidv4()
+    accountActivationToken: uuidv4(),
+    activationTokenPublishedAt: new Date()
   });
 
   try {
@@ -146,6 +147,10 @@ export const activateAccount = async (req: Request, res: Response) => {
 
     if (!user) {
       return res.status(404).json({ errors: ["Does not exist user."] });
+    }
+
+    if (isAfter(user.activationTokenPublishedAt, addHours(new Date(), ACCOUNT_ACTIVATION_EXPIRES_HOUR))) {
+      return res.status(401).json({ errors: ["Activation expired."] });
     }
 
     await user.update({ activated: true });
