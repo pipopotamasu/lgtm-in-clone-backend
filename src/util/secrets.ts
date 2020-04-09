@@ -10,7 +10,7 @@ if (prod) {
 } else if (ENVIRONMENT === "test") {
   dotenv.config({ path: ".env.test" });
 } else {
-  dotenv.config({ path: ".env.dev" });
+  dotenv.config({ path: ".env.development" });
 }
 
 export const MAILER_HOST = process.env["MAILER_HOST"];
