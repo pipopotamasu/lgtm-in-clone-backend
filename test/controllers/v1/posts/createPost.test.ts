@@ -3,20 +3,20 @@ import app from "@src/app";
 import { login } from "@test/helpers/user";
 
 describe("Post /api/v1/posts", () => {
-  describe('validation errors', () => {
-    describe('upload invalid extension file', () => {
-      it('returns error', async () => {
+  describe("validation errors", () => {
+    describe("upload invalid extension file", () => {
+      it("returns error", async () => {
         const { loginCookie } = await login();
 
         return request(app)
           .post("/api/v1/posts")
-          .attach('file', 'test/fixtures/test.txt')
+          .attach("file", "test/fixtures/test.txt")
           .set("Cookie", [loginCookie])
           .expect(500)
           .then((res) => {
-            expect(res.body.errors[0]).toBe("'txt' extension file can not be uploaded")
-          })
-      })
+            expect(res.body.errors[0]).toBe("'txt' extension file can not be uploaded");
+          });
+      });
     });
   });
 
@@ -36,13 +36,13 @@ describe("Post /api/v1/posts", () => {
 
       return request(app)
         .post("/api/v1/posts")
-        .attach('file', 'test/fixtures/test_image.png')
+        .attach("file", "test/fixtures/test_image.png")
         .set("Cookie", [loginCookie])
         .expect(201)
         .then((res) => {
-          expect(res.body.post.userId).toBe(user.id)
-          expect(res.body.post.src).toContain('test_image')
-        })
+          expect(res.body.post.userId).toBe(user.id);
+          expect(res.body.post.src).toContain("test_image");
+        });
     });
-  })
+  });
 });

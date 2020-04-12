@@ -2,7 +2,7 @@ import app from "@src/app";
 import request from "supertest";
 import { User, UserDocument } from "@models/User";
 
-export async function login (): Promise<{ loginCookie: string, user: UserDocument }> {
+export async function login (): Promise<{ loginCookie: string; user: UserDocument }> {
   let loginCookie: string;
   const user = await User.create({ email: "test@example.com", password: "password" });
   await request(app).post("/api/v1/login")
@@ -12,5 +12,5 @@ export async function login (): Promise<{ loginCookie: string, user: UserDocumen
       loginCookie = res.header["set-cookie"][0].split(";")[0];
     });
 
-  return { loginCookie, user }
+  return { loginCookie, user };
 }

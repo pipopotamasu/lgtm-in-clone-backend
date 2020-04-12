@@ -8,11 +8,11 @@ export type PostDocument = mongoose.Document & {
 
 type PostResponse = {
   id: string;
-  userId: string,
-  src: string,
-  bookmarked: boolean,
-  upvoted: boolean,
-  reported: boolean
+  userId: string;
+  src: string;
+  bookmarked: boolean;
+  upvoted: boolean;
+  reported: boolean;
 }
 
 const postSchema = new mongoose.Schema({
