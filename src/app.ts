@@ -49,6 +49,7 @@ app.use(passport.session());
 
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
+app.post("/api/v1/posts", passportConfig.isAuthenticated, postsController.createPost);
 app.post("/api/v1/signup", usersController.signup);
 // TODO: set your mail credentials
 // app.post("/api/v1/signup_with_mail_activation", usersController.signupWithMailActivation);

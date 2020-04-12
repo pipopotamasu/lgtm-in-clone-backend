@@ -1,21 +1,34 @@
 import mongoose from "mongoose";
 
 export type PostDocument = mongoose.Document & {
-  id: number;
   src: string;
   userId: number;
-  upvoted: boolean;
-  reported: boolean;
-  bookmarked: boolean;
+  response: () => PostResponse;
 };
 
+type PostResponse = {
+  id: string;
+  userId: string;
+  src: string;
+  bookmarked: boolean;
+  upvoted: boolean;
+  reported: boolean;
+}
+
 const postSchema = new mongoose.Schema({
-  id: Number,
   src: String,
-  userId: String, // TODO: fix as number
-  upvoted: Boolean,
-  reported: Boolean,
-  bookmarked: Boolean
+  userId: String,
 }, { timestamps: true });
+
+postSchema.methods.response = function (this: PostDocument) {
+  return {
+    id: this.id,
+    userId: this.userId,
+    src: this.src,
+    bookmarked: false,
+    upvoted: false,
+    reported: false
+  };
+};
 
 export const Post = mongoose.model<PostDocument>("Post", postSchema);
