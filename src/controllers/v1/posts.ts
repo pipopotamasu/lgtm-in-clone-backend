@@ -2,22 +2,7 @@
 
 import { Response, Request } from "express";
 import { Post } from "@models/Post";
-import multer from "multer";
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/image')
-  },
-  filename: (req, file, cb) => {
-    const [ filename, extention ] = file.originalname.split('.');
-    const imageName = `${filename}_${Date.now()}.${extention}`
-    cb(null, imageName)
-  }
-})
-
-const upload = multer({
-  storage
-}).single('file')
+import { upload } from "@src/uploader/post";
 
 export const getPosts = async (req: Request, res: Response) => {
   const result = await Post.find();
