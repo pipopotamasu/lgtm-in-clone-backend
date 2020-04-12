@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "@src/app";
-import { login } from "../../../helpers/user";
+import { login } from "@test/helpers/user";
 
 describe("Post /api/v1/posts", () => {
   describe('validation errors', () => {
