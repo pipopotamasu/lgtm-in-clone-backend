@@ -14,14 +14,18 @@ describe("Post /api/v1/posts", () => {
   });
 
   describe("has already loggedin", () => {
-    fit("is successfull upload image", async () => {
-      const loginCookie = await login();
+    it("is successfull upload image", async () => {
+      const { loginCookie, user } = await login();
 
       return request(app)
         .post("/api/v1/posts")
         .attach('file', 'test/fixtures/test_image.png')
         .set("Cookie", [loginCookie])
-        .expect(201);
+        .expect(201)
+        .then((res) => {
+          expect(res.body.post.userId).toBe(user.id)
+          expect(res.body.post.src).toContain('test_image')
+        })
     });
   })
 });

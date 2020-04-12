@@ -9,7 +9,8 @@ const storage = multer.diskStorage({
     cb(null, 'public/image')
   },
   filename: (req, file, cb) => {
-    const imageName = `${Math.random().toString(36).slice(-9)}_${Date.now()}.png`
+    const [ filename, extention ] = file.originalname.split('.');
+    const imageName = `${filename}_${Date.now()}.${extention}`
     cb(null, imageName)
   }
 })
@@ -24,16 +25,22 @@ export const getPosts = async (req: Request, res: Response) => {
 };
 
 export const createPost = async (req: Request, res: Response) => {
-  upload(req, res, (err) => {
-    console.log()
+  upload(req, res, async (err) => {
     if (err) {
       return res.status(500).json({
         error: "fail to uplord image"
       })
     }
 
+    const post = new Post({
+      userId: (req.user as any).id,
+      src: res.req.file.filename
+    })
+
+    await post.save();
+
     return res.status(201).json({
-      path: res.req.file.filename
+      post: post.response()
     })
   })
 };

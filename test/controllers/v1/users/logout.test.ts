@@ -15,7 +15,7 @@ describe("Get /api/v1/logout", () => {
 
   describe("has already loggedin", () => {
     it("returns user", async () => {
-      const loginCookie = await login();
+      const { loginCookie } = await login();
 
       return request(app).get("/api/v1/logout")
         .set("Cookie", [loginCookie])
