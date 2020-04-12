@@ -17,7 +17,7 @@ describe.skip("GET /account/activation", () => {
 
     describe("exceeded expire limit", () => {
       it("returns error", async () => {
-        const user = await User.create(
+        await User.create(
           {
             email: "test@example.com",
             password: "password",
@@ -51,7 +51,7 @@ describe.skip("GET /account/activation", () => {
         .expect(200)
         .then(async () => {
           const activatedUser = await User.findById(user.id);
-          expect(activatedUser.activated).toBe(true);
+          expect(activatedUser!.activated).toBe(true);
         });
     });
   });

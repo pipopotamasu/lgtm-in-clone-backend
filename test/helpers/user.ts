@@ -12,5 +12,6 @@ export async function login (): Promise<{ loginCookie: string; user: UserDocumen
       loginCookie = res.header["set-cookie"][0].split(";")[0];
     });
 
+  // @ts-ignore
   return { loginCookie, user };
 }

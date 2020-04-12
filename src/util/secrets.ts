@@ -13,14 +13,14 @@ if (prod) {
   dotenv.config({ path: ".env.development" });
 }
 
-export const MAILER_HOST = process.env["MAILER_HOST"];
-export const MAILER_PORT = process.env["MAILER_PORT"];
-export const MAILER_USER = process.env["MAILER_USER"];
-export const MAILER_PATHWORD = process.env["MAILER_PATHWORD"];
-export const MAIL_SENDER = process.env["MAIL_SENDER"];
+export const MAILER_HOST = process.env["MAILER_HOST"] as string;
+export const MAILER_PORT = process.env["MAILER_PORT"] as string;
+export const MAILER_USER = process.env["MAILER_USER"] as string;
+export const MAILER_PATHWORD = process.env["MAILER_PATHWORD"] as string;
+export const MAIL_SENDER = process.env["MAIL_SENDER"] as string;
 
-export const SESSION_SECRET = process.env["SESSION_SECRET"];
-export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];
+export const SESSION_SECRET = process.env["SESSION_SECRET"] as string;
+export const MONGODB_URI = prod ? process.env["MONGODB_URI"] as string : process.env["MONGODB_URI_LOCAL"] as string;
 
 if (!SESSION_SECRET) {
   logger.error("No client secret. Set SESSION_SECRET environment variable.");
