@@ -2,10 +2,10 @@ import request from "supertest";
 import app from "@src/app";
 import { login } from "../../../helpers/user";
 
-describe("Get /api/v1/logout", () => {
+describe("Post /api/v1/posts", () => {
   describe("has not loggedin yet", () => {
     it("returns 302", () => {
-      return request(app).get("/api/v1/logout")
+      return request(app).post("/api/v1/posts")
         .expect(302)
         .then(res => {
           expect(res.body.msgs[0]).toBe("Please login before executing this operation");
@@ -14,12 +14,12 @@ describe("Get /api/v1/logout", () => {
   });
 
   describe("has already loggedin", () => {
-    it("returns user", async () => {
+    it("is successfull upload image", async () => {
       const loginCookie = await login();
 
-      return request(app).get("/api/v1/logout")
+      return request(app).post("/api/v1/posts")
         .set("Cookie", [loginCookie])
-        .expect(200);
+        .expect(201);
     });
-  });
+  })
 });
