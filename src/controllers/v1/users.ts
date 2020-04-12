@@ -1,5 +1,5 @@
 import { User, UserDocument, ACCOUNT_ACTIVATION_EXPIRES_HOUR } from "@models/User";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
 import { createTransporter } from "@config/nodemailer";
@@ -11,7 +11,7 @@ import { addHours, isAfter } from "date-fns";
  * POST /login
  * Sign in using email and password.
  */
-export const login = async (req: Request, res: Response, next: NextFunction) => {
+export const login = async (req: Request, res: Response) => {
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
 
@@ -48,7 +48,7 @@ export const logout = async (req: Request, res: Response) => {
  * POST /signup
  * Create a new local account.
  */
-export const signup = async (req: Request, res: Response, next: NextFunction) => {
+export const signup = async (req: Request, res: Response) => {
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
   await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);
@@ -87,7 +87,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
  * POST /signup_with_mail_activation
  * Create a new local account.
  */
-export const signupWithMailActivation = async (req: Request, res: Response, next: NextFunction) => {
+export const signupWithMailActivation = async (req: Request, res: Response) => {
   await check("email", "Email is not valid").isEmail().normalizeEmail().run(req);
   await check("password", "Password must be at least 4 characters long").isLength({ min: 4 }).run(req);
   await check("confirmPassword", "Passwords do not match").equals(req.body.password).run(req);

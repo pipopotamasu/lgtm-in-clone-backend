@@ -3,10 +3,10 @@ import multer from "multer";
 const WHITE_LIST = ["png", "jpeg", "jpg", "gif"];
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _file, cb) => {
     cb(null, "public/image");
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     const [ filename, extention ] = file.originalname.split(".");
     const imageName = `${filename}_${Date.now()}.${extention}`;
     cb(null, imageName);
@@ -15,8 +15,8 @@ const storage = multer.diskStorage({
 
 export const upload = multer({
   storage,
-  fileFilter: (req, file, cb) => {
-    const [ _filename, extention ] = file.originalname.split(".");
+  fileFilter: (_req, file, cb) => {
+    const extention = file.originalname.split(".")[1];
     if (!WHITE_LIST.includes(extention)) {
       cb(new Error(`'${extention}' extension file can not be uploaded`));
     }
