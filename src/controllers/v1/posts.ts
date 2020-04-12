@@ -2,6 +2,21 @@
 
 import { Response, Request } from "express";
 import { Post } from "@models/Post";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/image')
+  },
+  filename: (req, file, cb) => {
+    const imageName = `${Math.random().toString(36).slice(-9)}_${Date.now()}.png`
+    cb(null, imageName)
+  }
+})
+
+const upload = multer({
+  storage
+}).single('file')
 
 export const getPosts = async (req: Request, res: Response) => {
   const result = await Post.find();
@@ -9,5 +24,16 @@ export const getPosts = async (req: Request, res: Response) => {
 };
 
 export const createPost = async (req: Request, res: Response) => {
-  return res.status(201).json();
+  upload(req, res, (err) => {
+    console.log()
+    if (err) {
+      return res.status(500).json({
+        error: "fail to uplord image"
+      })
+    }
+
+    return res.status(201).json({
+      path: res.req.file.filename
+    })
+  })
 };

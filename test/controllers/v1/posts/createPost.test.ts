@@ -14,10 +14,12 @@ describe("Post /api/v1/posts", () => {
   });
 
   describe("has already loggedin", () => {
-    it("is successfull upload image", async () => {
+    fit("is successfull upload image", async () => {
       const loginCookie = await login();
 
-      return request(app).post("/api/v1/posts")
+      return request(app)
+        .post("/api/v1/posts")
+        .attach('file', 'test/fixtures/test_image.png')
         .set("Cookie", [loginCookie])
         .expect(201);
     });
