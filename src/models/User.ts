@@ -49,6 +49,7 @@ userSchema.pre("save", function save(next) {
   if (!user.isModified("password")) { return next(); }
   bcrypt.genSalt(10, (err, salt) => {
     if (err) { return next(err); }
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     bcrypt.hash(user.password, salt, () => {}, (err: mongoose.Error, hash) => {
       if (err) { return next(err); }
       user.password = hash;
