@@ -10,10 +10,10 @@ export const getPosts = async (req: Request, res: Response) => {
 };
 
 export const createPost = async (req: Request, res: Response) => {
-  upload(req, res, async (err) => {
+  upload(req, res, async (err: Error | undefined) => {
     if (err) {
       return res.status(500).json({
-        errors: ["fail to upload image"]
+        errors: [err.message]
       })
     }
 

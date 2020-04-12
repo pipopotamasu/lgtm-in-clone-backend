@@ -3,6 +3,23 @@ import app from "@src/app";
 import { login } from "../../../helpers/user";
 
 describe("Post /api/v1/posts", () => {
+  describe('validation errors', () => {
+    describe('upload invalid extension file', () => {
+      it('returns error', async () => {
+        const { loginCookie } = await login();
+
+        return request(app)
+          .post("/api/v1/posts")
+          .attach('file', 'test/fixtures/test.txt')
+          .set("Cookie", [loginCookie])
+          .expect(500)
+          .then((res) => {
+            expect(res.body.errors[0]).toBe("'txt' extension file can not be uploaded")
+          })
+      })
+    });
+  });
+
   describe("has not loggedin yet", () => {
     it("returns 302", () => {
       return request(app).post("/api/v1/posts")

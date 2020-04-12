@@ -39,3 +39,4 @@ dist/**/*
 data/**/*
 
 public/image/*.png
+public/image/*.txt
