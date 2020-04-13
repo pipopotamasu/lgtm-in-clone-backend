@@ -10,6 +10,21 @@ export const getPosts = async (req: Request, res: Response) => {
   return res.status(200).json({ posts: posts.map( p => p.response()) });
 };
 
+export const getPost = async (req: Request, res: Response) => {
+  const postId = req.params.id;
+
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ errors: ["Not found."] });
+    }
+    return res.status(200).json({ post: post.response() });
+  } catch (e) {
+    // NOTE: need a way to specify 404 error
+    return res.status(404).json({ errors: ["Not found."] });
+  }
+};
+
 export const createPost = async (req: Request, res: Response) => {
   upload(req, res, async (err: Error | undefined) => {
     if (err) {
