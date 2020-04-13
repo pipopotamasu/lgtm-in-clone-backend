@@ -1,10 +1,13 @@
 import { Response, Request } from "express";
 import { Post } from "@models/Post";
 import { upload } from "@src/uploader/post";
+import { calcPagination } from "@util/pagination";
 
-export const getPosts = async (_req: Request, res: Response) => {
-  const result = await Post.find();
-  return res.status(200).json(result);
+const PAGE_LIMIT = 20;
+
+export const getPosts = async (req: Request, res: Response) => {
+  const posts = await Post.find().skip(calcPagination(req.query.page, PAGE_LIMIT)).sort({ createdAt: "desc" }).limit(PAGE_LIMIT);
+  return res.status(200).json({ posts: posts.map( p => p.response()) });
 };
 
 export const createPost = async (req: Request, res: Response) => {
