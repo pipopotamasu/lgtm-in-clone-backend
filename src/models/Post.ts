@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 export type PostDocument = mongoose.Document & {
   src: string;
   userId: number;
+  createdAt: Date;
+  updatedAt: Date;
   response: () => PostResponse;
 };
 
