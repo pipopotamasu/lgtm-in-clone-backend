@@ -10,5 +10,6 @@ const postBookmarkSchema = new mongoose.Schema({
   postId: String
 });
 
+postBookmarkSchema.index({ userId: 1, postId: 1 }, { unique: true });
 
 export const PostBookmark = mongoose.model<PostBookmarkDocument>("PostBookmark", postBookmarkSchema);

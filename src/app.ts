@@ -50,6 +50,7 @@ app.use(passport.session());
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
 app.get("/api/v1/posts/:id", postsController.getPost);
+app.post("/api/v1/posts/:id/bookmark", passportConfig.isAuthenticated, postsController.createBookmark);
 app.post("/api/v1/posts", passportConfig.isAuthenticated, postsController.createPost);
 app.post("/api/v1/signup", usersController.signup);
 // TODO: set your mail credentials

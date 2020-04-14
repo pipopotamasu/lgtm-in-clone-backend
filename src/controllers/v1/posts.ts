@@ -1,5 +1,7 @@
 import { Response, Request } from "express";
 import { Post } from "@models/Post";
+import { UserDocument } from "@models/User";
+import { PostBookmark } from "@models/PostBookmark";
 import { upload } from "@src/uploader/post";
 import { calcPagination } from "@util/pagination";
 
@@ -42,4 +44,21 @@ export const createPost = async (req: Request, res: Response) => {
       post: post.response()
     });
   });
+};
+
+export const createBookmark = async (req: Request, res: Response) => {
+  const user = req.user as UserDocument;
+  const postId = req.params.id;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json();
+    }
+    await PostBookmark.create({ userId: user.id, postId });
+
+    return res.status(201).json();
+  } catch (e) {
+    // duplication error
+    return res.status(201).json();
+  }
 };
