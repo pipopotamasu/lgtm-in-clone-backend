@@ -6,8 +6,14 @@ export type PostBookmarkDocument = mongoose.Document & {
 };
 
 const postBookmarkSchema = new mongoose.Schema({
-  userId: String,
-  postId: String
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  postId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Post"
+  }
 });
 
 postBookmarkSchema.index({ userId: 1, postId: 1 }, { unique: true });
