@@ -62,3 +62,21 @@ export const createBookmark = async (req: Request, res: Response) => {
     return res.status(201).json();
   }
 };
+
+export const deleteBookmark = async (req: Request, res: Response) => {
+  const user = req.user as UserDocument;
+  const postId = req.params.id;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json();
+    }
+
+    await PostBookmark.findOneAndDelete({ userId: user.id, postId });
+
+    return res.status(200).json();
+  } catch (e) {
+    return res.status(500).json({ errors: [e.message] });
+  }
+};
+

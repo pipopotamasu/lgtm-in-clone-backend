@@ -8,4 +8,8 @@ beforeEach((done) => {
   mongoose.connection.collections.posts.drop(() => {
     done();
   });
+
+  mongoose.connection.collections.postbookmarks.drop(() => {
+    done();
+  });
 });
