@@ -8,7 +8,10 @@ import { calcPagination } from "@util/pagination";
 const PAGE_LIMIT = 20;
 
 export const getPosts = async (req: Request, res: Response) => {
-  const posts = await Post.find().skip(calcPagination(req.query.page, PAGE_LIMIT)).sort({ createdAt: "desc" }).limit(PAGE_LIMIT);
+  const posts = await Post.find()
+    .skip(calcPagination(req.query.page, PAGE_LIMIT))
+    .sort({ createdAt: "desc" })
+    .limit(PAGE_LIMIT);
   return res.status(200).json({ posts: posts.map( p => p.response()) });
 };
 
@@ -18,7 +21,7 @@ export const getPost = async (req: Request, res: Response) => {
 
   try {
     const post = await Post.findById(postId).populate({
-      path: 'bookmarks',
+      path: "bookmarks",
       match: { userId: user ? user.id : null }
     });
 
@@ -26,7 +29,7 @@ export const getPost = async (req: Request, res: Response) => {
       return res.status(404).json({ errors: ["Not found."] });
     }
 
-    return res.status(200).json({ post: post.response() });
+    return res.status(200).json({ post: post.response(user) });
   } catch (e) {
     // NOTE: need a way to specify 404 error
     return res.status(404).json({ errors: ["Not found."] });

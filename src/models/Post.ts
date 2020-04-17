@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 import { PostBookmarkDocument } from "./PostBookmark";
+import { UserDocument } from "./User";
 
 export type PostDocument = mongoose.Document & {
   src: string;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
-  bookmarks: PostBookmarkDocument[],
-  response: () => PostResponse;
+  bookmarks: PostBookmarkDocument[];
+  response: (currentUser?: UserDocument) => PostResponse;
 };
 
 type PostResponse = {
@@ -22,15 +23,15 @@ type PostResponse = {
 const postSchema = new mongoose.Schema({
   src: String,
   userId: String,
-  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PostBookmark' }],
+  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "PostBookmark" }],
 }, { timestamps: true });
 
-postSchema.methods.response = function (this: PostDocument) {
+postSchema.methods.response = function (this: PostDocument, currentUser?: UserDocument) {
   return {
     id: this.id,
     userId: this.userId,
     src: this.src,
-    bookmarked: this.bookmarks.length > 0,
+    bookmarked: currentUser ? this.bookmarks.some(b => b.userId == currentUser.id) : false,
     upvoted: false,
     reported: false
   };
