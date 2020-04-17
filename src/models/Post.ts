@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
+import { PostBookmarkDocument } from "./PostBookmark";
 
 export type PostDocument = mongoose.Document & {
   src: string;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
+  bookmarks: PostBookmarkDocument[],
   response: () => PostResponse;
 };
 
@@ -20,6 +22,7 @@ type PostResponse = {
 const postSchema = new mongoose.Schema({
   src: String,
   userId: String,
+  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PostBookmark' }],
 }, { timestamps: true });
 
 postSchema.methods.response = function (this: PostDocument) {

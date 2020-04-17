@@ -1,7 +1,9 @@
 import request from "supertest";
 import app from "@src/app";
 import { Post } from "@models/Post";
+import { PostBookmark } from "@models/PostBookmark";
 import { Types } from "mongoose";
+import { login } from "@test/helpers/user";
 
 describe("Get /api/v1/posts/:id", () => {
   describe("errors", () => {
@@ -22,6 +24,15 @@ describe("Get /api/v1/posts/:id", () => {
   });
 
   describe("post exists", () => {
+    fit("is successfull get post", async () => {
+      const { loginCookie, user } = await login()
+      const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
+      await PostBookmark.create({ postId: post.id, userId: user.id })
+      const res = await request(app).get(`/api/v1/posts/${post.id}`).set("Cookie", [loginCookie]).expect(200);
+
+      expect(res.body.post).toEqual(post.response());
+    });
+
     it("is successfull get post", async () => {
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
       const res = await request(app).get(`/api/v1/posts/${post.id}`).expect(200);

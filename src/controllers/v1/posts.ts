@@ -16,7 +16,8 @@ export const getPost = async (req: Request, res: Response) => {
   const postId = req.params.id;
 
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate('bookmarks', 'postId');
+    console.log(post)
     if (!post) {
       return res.status(404).json({ errors: ["Not found."] });
     }
