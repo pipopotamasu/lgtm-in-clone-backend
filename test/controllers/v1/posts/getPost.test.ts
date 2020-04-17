@@ -26,10 +26,14 @@ describe("Get /api/v1/posts/:id", () => {
   describe("post exists", () => {
     fit("is successfull get post", async () => {
       const { loginCookie, user } = await login()
-      const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
-      await PostBookmark.create({ postId: post.id, userId: user.id })
+      const post = new Post({ src: "path/to/src", userId: "testuserid" });
+      const bookmark = await PostBookmark.create({ postId: post.id, userId: user.id })
+      post.bookmarks.push(bookmark)
+      await post.save();
+
       const res = await request(app).get(`/api/v1/posts/${post.id}`).set("Cookie", [loginCookie]).expect(200);
 
+      console.log(post.response())
       expect(res.body.post).toEqual(post.response());
     });
 

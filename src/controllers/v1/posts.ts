@@ -14,13 +14,18 @@ export const getPosts = async (req: Request, res: Response) => {
 
 export const getPost = async (req: Request, res: Response) => {
   const postId = req.params.id;
+  const user = req.user as UserDocument | undefined;
 
   try {
-    const post = await Post.findById(postId).populate('bookmarks', 'postId');
-    console.log(post)
+    const post = await Post.findById(postId).populate({
+      path: 'bookmarks',
+      match: { userId: user ? user.id : null }
+    });
+
     if (!post) {
       return res.status(404).json({ errors: ["Not found."] });
     }
+
     return res.status(200).json({ post: post.response() });
   } catch (e) {
     // NOTE: need a way to specify 404 error

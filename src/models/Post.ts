@@ -30,7 +30,7 @@ postSchema.methods.response = function (this: PostDocument) {
     id: this.id,
     userId: this.userId,
     src: this.src,
-    bookmarked: false,
+    bookmarked: this.bookmarks.length > 0,
     upvoted: false,
     reported: false
   };
