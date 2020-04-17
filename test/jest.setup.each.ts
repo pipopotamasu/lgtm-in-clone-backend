@@ -1,15 +1,7 @@
 import mongoose from "mongoose";
 
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    done();
-  });
-
-  mongoose.connection.collections.posts.drop(() => {
-    done();
-  });
-
-  mongoose.connection.collections.postbookmarks.drop(() => {
-    done();
+  Object.keys(mongoose.connection.collections).forEach((collection) => {
+    mongoose.connection.collections[collection].deleteMany(() => done());
   });
 });
