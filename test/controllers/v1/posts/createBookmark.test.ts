@@ -33,9 +33,7 @@ describe("Post /api/v1/posts/:id/bookmark", () => {
       expect(bookmark).toBeTruthy();
     });
 
-    // NOTE: Somehow, this example doesn't work when I exec all examples.
-    //       Individual example works.
-    it.skip("saves post bookmark multiple", async () => {
+    it("saves post bookmark multiple", async () => {
       const { loginCookie, user } = await login();
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
 
