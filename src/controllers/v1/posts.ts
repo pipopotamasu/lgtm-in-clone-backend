@@ -8,11 +8,16 @@ import { calcPagination } from "@util/pagination";
 const PAGE_LIMIT = 20;
 
 export const getPosts = async (req: Request, res: Response) => {
+  const user = req.user as UserDocument | undefined;
   const posts = await Post.find()
+    .populate({
+      path: "bookmarks",
+      match: { userId: user ? user.id : null }
+    })
     .skip(calcPagination(req.query.page, PAGE_LIMIT))
     .sort({ createdAt: "desc" })
     .limit(PAGE_LIMIT);
-  return res.status(200).json({ posts: posts.map( p => p.response()) });
+  return res.status(200).json({ posts: posts.map( p => p.response(user)) });
 };
 
 export const getPost = async (req: Request, res: Response) => {
