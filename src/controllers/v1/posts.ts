@@ -64,18 +64,22 @@ export const createBookmark = async (req: Request, res: Response) => {
   const user = req.user as UserDocument;
   const postId = req.params.id;
   try {
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate("bookmarks");
     if (!post) {
-      return res.status(404).json();
+      return res.status(404).json({ errors: ["Post does not exist."] });
     }
+
+    if (post.bookmarks.length > 0) {
+      return res.status(201).json();
+    }
+
     const bookmark = await PostBookmark.create({ userId: user.id, postId });
-    post.bookmarks.push(bookmark)
-    await post.save()
+    post.bookmarks.push(bookmark);
+    await post.save();
 
     return res.status(201).json();
   } catch (e) {
-    // duplication error
-    return res.status(201).json();
+    return res.status(500).json({ errors: [e.message] });
   }
 };
 

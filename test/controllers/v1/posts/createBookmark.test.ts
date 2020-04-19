@@ -19,7 +19,8 @@ describe("Post /api/v1/posts/:id/bookmark", () => {
   describe("post does not exist", () => {
     it("returns 404", async () => {
       const { loginCookie } = await login();
-      await request(app).post(`/api/v1/posts/${Types.ObjectId()}/bookmark`).set("Cookie", [loginCookie]).expect(404);
+      const res = await request(app).post(`/api/v1/posts/${Types.ObjectId()}/bookmark`).set("Cookie", [loginCookie]).expect(404);
+      expect(res.body.errors[0]).toBe("Post does not exist.");
     });
   });
 
@@ -32,7 +33,7 @@ describe("Post /api/v1/posts/:id/bookmark", () => {
       const bookmark = await PostBookmark.findOne({ userId: user.id, postId: post.id });
       expect(bookmark).toBeTruthy();
 
-      post = await Post.findById(post.id).populate('bookmarks');
+      post = await Post.findById(post.id).populate("bookmarks");
       expect(post!.bookmarks[0].id).toBe(bookmark!.id);
     });
 
@@ -40,7 +41,9 @@ describe("Post /api/v1/posts/:id/bookmark", () => {
       const { loginCookie, user } = await login();
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
 
-      await PostBookmark.create({ userId: user.id, postId: post.id });
+      const bookmark = await PostBookmark.create({ userId: user.id, postId: post.id });
+      post.bookmarks.push(bookmark);
+      await post.save();
       await request(app).post(`/api/v1/posts/${post.id}/bookmark`).set("Cookie", [loginCookie]).expect(201);
 
       const bookmarks = await PostBookmark.find({ userId: user.id, postId: post.id });
