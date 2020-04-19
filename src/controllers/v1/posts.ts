@@ -68,7 +68,9 @@ export const createBookmark = async (req: Request, res: Response) => {
     if (!post) {
       return res.status(404).json();
     }
-    await PostBookmark.create({ userId: user.id, postId });
+    const bookmark = await PostBookmark.create({ userId: user.id, postId });
+    post.bookmarks.push(bookmark)
+    await post.save()
 
     return res.status(201).json();
   } catch (e) {
