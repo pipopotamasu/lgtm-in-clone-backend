@@ -89,7 +89,7 @@ export const deleteBookmark = async (req: Request, res: Response) => {
   try {
     const post = await Post.findById(postId);
     if (!post) {
-      return res.status(404).json();
+      return res.status(404).json({ errors: ["Post does not exist."] });
     }
 
     await PostBookmark.findOneAndDelete({ userId: user.id, postId });
