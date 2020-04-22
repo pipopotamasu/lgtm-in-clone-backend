@@ -168,7 +168,7 @@ export const activateAccount = async (req: Request, res: Response) => {
 export const deleteAccount = async (req: Request, res: Response) => {
   const user = req.user as UserDocument;
   try {
-    await User.remove({ _id: user.id });
+    await User.deleteOne({ _id: user.id });
     req.logout();
     return res.status(200).json({ msgs: ["Your account was deleted"] });
   } catch (err) {
