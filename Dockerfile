@@ -15,7 +15,5 @@ EXPOSE $PORT
 
 RUN apk add --no-cache --update git
 
-RUN yarn install
-
 # this command is execed after building container
-CMD ["yarn", "watch"]
+CMD ["sh", "entrypoint.sh"]
