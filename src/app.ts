@@ -5,6 +5,7 @@ import mongo from "connect-mongo";
 import mongoose from "mongoose";
 import bluebird from "bluebird";
 import passport from "passport";
+import cors from "cors";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 
 const MongoStore = mongo(session);
@@ -46,6 +47,9 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors({
+  origin: 'http://localhost:3000',
+}))
 
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);
