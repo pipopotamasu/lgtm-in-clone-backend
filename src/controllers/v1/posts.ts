@@ -54,9 +54,7 @@ export const createPost = async (req: Request, res: Response) => {
       src: (res as any).req.file.filename
     });
 
-    return res.status(201).json({
-      post: post.response()
-    });
+    return res.status(201).json( post.response());
   });
 };
 

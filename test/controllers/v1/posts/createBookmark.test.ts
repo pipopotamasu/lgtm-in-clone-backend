@@ -5,7 +5,6 @@ import { login } from "@test/helpers/user";
 import { PostBookmark } from "@models/PostBookmark";
 import { Types } from "mongoose";
 
-
 describe("Post /api/v1/posts/:id/bookmark", () => {
   describe("has not loggedin yet", () => {
     it("returns 302", async () => {

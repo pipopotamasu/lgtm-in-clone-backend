@@ -25,7 +25,7 @@ describe("Post /api/v1/posts", () => {
       return request(app).post("/api/v1/posts")
         .expect(302)
         .then(res => {
-          expect(res.body.msgs[0]).toBe("Please login before executing this operation");
+          expect(res.body.errors[0]).toBe("Please login before executing this operation");
         });
     });
   });
@@ -40,8 +40,8 @@ describe("Post /api/v1/posts", () => {
         .set("Cookie", [loginCookie])
         .expect(201)
         .then((res) => {
-          expect(res.body.post.userId).toBe(user.id);
-          expect(res.body.post.src).toContain("test_image");
+          expect(res.body.userId).toBe(user.id);
+          expect(res.body.src).toContain("test_image");
         });
     });
   });
