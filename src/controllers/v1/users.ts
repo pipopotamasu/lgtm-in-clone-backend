@@ -76,7 +76,7 @@ export const signup = async (req: Request, res: Response) => {
       if (err) {
         return res.status(500).json({ errors: [err] });
       }
-      return res.status(201).json({ user: user.response() });
+      return res.status(201).json(user.response());
     });
   } catch (err) {
     return res.status(500).json({ errors: [err] });
