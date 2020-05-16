@@ -48,8 +48,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-  origin: 'http://localhost:3000',
-}))
+  origin: "http://localhost:3000",
+}));
 
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);

@@ -9,7 +9,7 @@ describe("Delete /api/v1/account/delete", () => {
       return request(app).delete("/api/v1/account/delete")
         .expect(302)
         .then(res => {
-          expect(res.body.msgs[0]).toBe("Please login before executing this operation");
+          expect(res.body.errors[0]).toBe("Please login before executing this operation");
         });
     });
   });

@@ -17,7 +17,7 @@ export const getPosts = async (req: Request, res: Response) => {
     .skip(calcPagination(req.query.page, PAGE_LIMIT))
     .sort({ createdAt: "desc" })
     .limit(PAGE_LIMIT);
-  return res.status(200).json({ posts: posts.map( p => p.response(user)) });
+  return res.status(200).json(posts.map( p => p.response(user)));
 };
 
 export const getPost = async (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ export const getPost = async (req: Request, res: Response) => {
       return res.status(404).json({ errors: ["Not found."] });
     }
 
-    return res.status(200).json({ post: post.response(user) });
+    return res.status(200).json(post.response(user));
   } catch (e) {
     // NOTE: need a way to specify 404 error
     return res.status(404).json({ errors: ["Not found."] });
@@ -54,9 +54,7 @@ export const createPost = async (req: Request, res: Response) => {
       src: (res as any).req.file.filename
     });
 
-    return res.status(201).json({
-      post: post.response()
-    });
+    return res.status(201).json( post.response());
   });
 };
 

@@ -12,7 +12,7 @@ describe("Delete /api/v1/posts/:id/bookmark", () => {
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
       const res = await request(app).delete(`/api/v1/posts/${post.id}/bookmark`).expect(302);
 
-      expect(res.body.msgs[0]).toBe("Please login before executing this operation");
+      expect(res.body.errors[0]).toBe("Please login before executing this operation");
     });
   });
 

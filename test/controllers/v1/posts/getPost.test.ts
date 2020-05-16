@@ -28,7 +28,7 @@ describe("Get /api/v1/posts/:id", () => {
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
       const res = await request(app).get(`/api/v1/posts/${post.id}`).expect(200);
 
-      expect(res.body.post).toEqual(post.response());
+      expect(res.body).toEqual(post.response());
     });
 
     describe("post has bookmark which was created by myself", () => {
@@ -41,7 +41,7 @@ describe("Get /api/v1/posts/:id", () => {
 
         const res = await request(app).get(`/api/v1/posts/${post.id}`).set("Cookie", [loginCookie]).expect(200);
 
-        expect(res.body.post.bookmarked).toBe(true);
+        expect(res.body.bookmarked).toBe(true);
       });
     });
 
@@ -55,7 +55,7 @@ describe("Get /api/v1/posts/:id", () => {
 
         const res = await request(app).get(`/api/v1/posts/${post.id}`).set("Cookie", [loginCookie]).expect(200);
 
-        expect(res.body.post.bookmarked).toBe(false);
+        expect(res.body.bookmarked).toBe(false);
       });
     });
   });

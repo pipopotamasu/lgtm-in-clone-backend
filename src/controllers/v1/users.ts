@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
       if (err) {
         return res.status(500).json({ errors: [err] });
       }
-      return res.status(200).json({ user: user.response() });
+      return res.status(200).json(user.response());
     });
   })(req, res);
 };
@@ -76,7 +76,7 @@ export const signup = async (req: Request, res: Response) => {
       if (err) {
         return res.status(500).json({ errors: [err] });
       }
-      return res.status(201).json({ user: user.response() });
+      return res.status(201).json(user.response());
     });
   } catch (err) {
     return res.status(500).json({ errors: [err] });
@@ -124,7 +124,6 @@ export const signupWithMailActivation = async (req: Request, res: Response) => {
 
     createTransporter().sendMail(message, (err) => {
       if (err) {
-        console.log(err);
         return res.status(500).json({ errors: [err] });
       }
 

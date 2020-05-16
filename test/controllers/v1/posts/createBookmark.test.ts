@@ -5,14 +5,13 @@ import { login } from "@test/helpers/user";
 import { PostBookmark } from "@models/PostBookmark";
 import { Types } from "mongoose";
 
-
 describe("Post /api/v1/posts/:id/bookmark", () => {
   describe("has not loggedin yet", () => {
     it("returns 302", async () => {
       const post = await Post.create({ src: "path/to/src", userId: "testuserid" });
       const res = await request(app).post(`/api/v1/posts/${post.id}/bookmark`).expect(302);
 
-      expect(res.body.msgs[0]).toBe("Please login before executing this operation");
+      expect(res.body.errors[0]).toBe("Please login before executing this operation");
     });
   });
 
