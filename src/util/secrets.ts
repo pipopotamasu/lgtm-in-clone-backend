@@ -13,8 +13,8 @@ if (prod) {
   dotenv.config({ path: ".env.development" });
 }
 
-if (process.env["LOCAL_DOCKER"] === 'true') {
-  process.env["MONGODB_URI_LOCAL"] = 'mongodb://mongodb:27017/lgtm-clone'
+if (process.env["LOCAL_DOCKER"] === "true") {
+  process.env["MONGODB_URI_LOCAL"] = "mongodb://mongodb:27017/lgtm-clone";
 }
 
 export const MAILER_HOST = process.env["MAILER_HOST"] as string;
