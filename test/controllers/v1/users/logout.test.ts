@@ -8,7 +8,7 @@ describe("Get /api/v1/logout", () => {
       return request(app).get("/api/v1/logout")
         .expect(302)
         .then(res => {
-          expect(res.body.msgs[0]).toBe("Please login before executing this operation");
+          expect(res.body.errors[0]).toBe("Please login before executing this operation");
         });
     });
   });
