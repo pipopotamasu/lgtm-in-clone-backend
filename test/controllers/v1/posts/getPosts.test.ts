@@ -10,8 +10,8 @@ describe("Get /api/v1/posts", () => {
     const post2 = await Post.create({ src: "path/to/src", userId: "testuserid2" });
     const res = await request(app).get("/api/v1/posts").expect(200);
 
-    expect(res.body.posts[0].userId).toBe(post2.userId);
-    expect(res.body.posts[1].userId).toBe(post.userId);
+    expect(res.body[0].userId).toBe(post2.userId);
+    expect(res.body[1].userId).toBe(post.userId);
   });
 
   it("is successfull get posts as pagination", async () => {
@@ -19,7 +19,7 @@ describe("Get /api/v1/posts", () => {
       await Post.create({ src: "path/to/src", userId: `testuserid${i + 1}` });
     }
     const res = await request(app).get("/api/v1/posts?page=2").expect(200);
-    expect(res.body.posts[0].userId).toBe("testuserid1");
+    expect(res.body[0].userId).toBe("testuserid1");
   });
 
   it("is successfull get posts with bookmark status", async () => {
@@ -29,6 +29,6 @@ describe("Get /api/v1/posts", () => {
     post.bookmarks.push(bookmark);
     await post.save();
     const res = await request(app).get("/api/v1/posts").set("Cookie", [loginCookie]).expect(200);
-    expect(res.body.posts[0].bookmarked).toBe(true);
+    expect(res.body[0].bookmarked).toBe(true);
   });
 });

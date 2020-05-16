@@ -17,7 +17,7 @@ export const getPosts = async (req: Request, res: Response) => {
     .skip(calcPagination(req.query.page, PAGE_LIMIT))
     .sort({ createdAt: "desc" })
     .limit(PAGE_LIMIT);
-  return res.status(200).json({ posts: posts.map( p => p.response(user)) });
+  return res.status(200).json(posts.map( p => p.response(user)));
 };
 
 export const getPost = async (req: Request, res: Response) => {
