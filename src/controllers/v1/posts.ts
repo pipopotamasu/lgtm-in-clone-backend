@@ -34,7 +34,7 @@ export const getPost = async (req: Request, res: Response) => {
       return res.status(404).json({ errors: ["Not found."] });
     }
 
-    return res.status(200).json({ post: post.response(user) });
+    return res.status(200).json(post.response(user));
   } catch (e) {
     // NOTE: need a way to specify 404 error
     return res.status(404).json({ errors: ["Not found."] });
