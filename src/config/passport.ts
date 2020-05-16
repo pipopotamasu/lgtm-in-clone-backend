@@ -41,5 +41,5 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
     return next();
   }
 
-  return res.status(302).json({ msgs: ["Please login before executing this operation"] });
+  return res.status(302).json({ errors: ["Please login before executing this operation"] });
 };
