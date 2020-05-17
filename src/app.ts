@@ -49,6 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
   origin: "http://localhost:3000",
+  credentials: true
 }));
 
 app.get("/api/v1", apiController.getApi);
