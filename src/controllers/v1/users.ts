@@ -7,6 +7,7 @@ import { MAIL_SENDER, ENVIRONMENT } from "@util/secrets";
 import { v4 as uuidv4 } from "uuid";
 import { frontendOrigin } from "@config/app";
 import { addHours, isAfter } from "date-fns";
+
 /**
  * POST /login
  * Sign in using email and password.
@@ -33,6 +34,23 @@ export const login = async (req: Request, res: Response) => {
       return res.status(200).json(user.response());
     });
   })(req, res);
+};
+
+/**
+ * GET /current_user
+ * get current user
+ */
+export const currentUser = async (req: Request, res: Response) => {
+  const user = req.user as UserDocument;
+  try {
+    const currentUser = await User.findById(user.id);
+    if (!currentUser) {
+      return res.status(400).json({ errors: ["Invalid access"] });
+    }
+    return res.status(200).json(currentUser.response());
+  } catch (e) {
+    return res.status(500).json({ errors: [e.message] });
+  }
 };
 
 /**

@@ -59,6 +59,7 @@ app.post("/api/v1/posts/:id/bookmark", passportConfig.isAuthenticated, postsCont
 app.delete("/api/v1/posts/:id/bookmark", passportConfig.isAuthenticated, postsController.deleteBookmark);
 app.post("/api/v1/posts", passportConfig.isAuthenticated, postsController.createPost);
 app.post("/api/v1/signup", usersController.signup);
+app.get("/api/v1/current_user", passportConfig.isAuthenticated, usersController.currentUser);
 // TODO: set your mail credentials
 // app.post("/api/v1/signup_with_mail_activation", usersController.signupWithMailActivation);
 // app.get("/api/v1/account/activation", usersController.activateAccount);
