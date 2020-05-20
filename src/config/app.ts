@@ -1,11 +1,16 @@
-import { NODE_ENV } from "app";
+import { ENVIRONMENT as env } from "@util/secrets";
 
-export const appConfig = {
+const appConfig = {
   test: {
     frontend: {
       protcol: "http",
       host: "exmaple.com",
-      port: 443,
+      port: 80,
+    },
+    backend: {
+      protcol: "http",
+      host: "api.exmaple.com",
+      port: 80,
     }
   },
   development: {
@@ -13,6 +18,11 @@ export const appConfig = {
       protcol: "http",
       host: "localhost",
       port: 3000,
+    },
+    backend: {
+      protcol: "http",
+      host: "localhost",
+      port: 8000,
     }
   },
   production: {
@@ -20,11 +30,23 @@ export const appConfig = {
       protcol: "https",
       host: "",
       port: 443,
+    },
+    backend: {
+      protcol: "https",
+      host: "",
+      port: 443,
     }
   }
 };
 
-export function frontendOrigin (env: NODE_ENV) {
-  const { protcol, host, port } = appConfig[env].frontend;
+export const config = appConfig[env];
+
+export function frontendOrigin () {
+  const { protcol, host, port } = config.frontend;
+  return `${protcol}://${host}:${port}`;
+}
+
+export function backendOrigin () {
+  const { protcol, host, port } = config.backend;
   return `${protcol}://${host}:${port}`;
 }

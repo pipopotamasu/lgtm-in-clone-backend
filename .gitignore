@@ -38,5 +38,6 @@ dist/**/*
 
 data/**/*
 
+public/image/*.jpg
 public/image/*.png
 public/image/*.txt
