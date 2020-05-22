@@ -7,6 +7,7 @@ import bluebird from "bluebird";
 import passport from "passport";
 import cors from "cors";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { config, frontendOrigin } from "./config/app";
 
 const MongoStore = mongo(session);
 
@@ -33,7 +34,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useCreateIndex: true, useUni
 });
 
 // Express configuration
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || config.backend.port);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
@@ -48,9 +49,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: frontendOrigin(),
   credentials: true
 }));
+app.use(express.static("public"));
 
 app.get("/api/v1", apiController.getApi);
 app.get("/api/v1/posts", postsController.getPosts);

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { check, validationResult } from "express-validator";
 import passport from "passport";
 import { createTransporter } from "@config/nodemailer";
-import { MAIL_SENDER, ENVIRONMENT } from "@util/secrets";
+import { MAIL_SENDER } from "@util/secrets";
 import { v4 as uuidv4 } from "uuid";
 import { frontendOrigin } from "@config/app";
 import { addHours, isAfter } from "date-fns";
@@ -137,7 +137,7 @@ export const signupWithMailActivation = async (req: Request, res: Response) => {
       from: MAIL_SENDER,
       to: user.email,
       subject: "Activation mail for lgtm.in clone",
-      text: `Click here within 1 hour: ${frontendOrigin(ENVIRONMENT)}/account_activation?token=${user.accountActivationToken}`
+      text: `Click here within 1 hour: ${frontendOrigin()}/account_activation?token=${user.accountActivationToken}`
     };
 
     createTransporter().sendMail(message, (err) => {

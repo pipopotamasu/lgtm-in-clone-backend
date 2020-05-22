@@ -4,6 +4,7 @@ import { UserDocument } from "@models/User";
 import { PostBookmark } from "@models/PostBookmark";
 import { upload } from "@src/uploader/post";
 import { calcPagination } from "@util/pagination";
+import { backendOrigin } from "@config/app";
 
 const PAGE_LIMIT = 20;
 
@@ -51,7 +52,7 @@ export const createPost = async (req: Request, res: Response) => {
 
     const post = await Post.create({
       userId: (req.user as any).id,
-      src: (res as any).req.file.filename
+      src: `${backendOrigin()}/image/${(res as any).req.file.filename}`
     });
 
     return res.status(201).json( post.response());
