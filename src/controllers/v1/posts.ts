@@ -42,6 +42,28 @@ export const getPost = async (req: Request, res: Response) => {
   }
 };
 
+export const getPostRandom = async (req: Request, res: Response) => {
+  const user = req.user as UserDocument | undefined;
+
+  try {
+    const count = await Post.count({});
+    const random = Math.floor(Math.random() * count);
+    const post = await Post.findOne().skip(random).populate({
+      path: "bookmarks",
+      match: { userId: user ? user.id : null }
+    });
+
+    if (!post) {
+      return res.status(404).json({ errors: ["Not found."] });
+    }
+
+    return res.status(200).json(post.response(user));
+  } catch (e) {
+    // NOTE: need a way to specify 404 error
+    return res.status(404).json({ errors: ["Not found."] });
+  }
+};
+
 export const createPost = async (req: Request, res: Response) => {
   upload(req, res, async (err: Error | undefined) => {
     if (err) {
