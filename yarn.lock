@@ -484,10 +484,10 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/concurrently@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@types/concurrently/-/concurrently-5.1.0.tgz#4d1e18e53b39b01e4e067d8d3da4dfd8df1d54e0"
-  integrity sha512-rlopFW8ajsFwbIftfzo6yofRIAw4a1F2zX1U3R1a6mgupDPxucaxyGeyGMPmGZSB6nkZFHVyZEy0zG+JUwsY6A==
+"@types/concurrently@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@types/concurrently/-/concurrently-5.2.1.tgz#de20f99f4db3e8ea5176c82033b79d1f343f307f"
+  integrity sha512-0hN1M4D2TRvJCxT8SnYhVAATontVZ5ASxw98bhYOwvkRdpkSm3fNebMjMZ75CNv1kv7WVDJtkHIWW4YrEWfvhQ==
   dependencies:
     "@types/node" "*"
 
@@ -1487,10 +1487,10 @@ concat-stream@^1.5.2:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-5.1.0.tgz#05523986ba7aaf4b58a49ddd658fab88fa783132"
-  integrity sha512-9ViZMu3OOCID3rBgU31mjBftro2chOop0G2u1olq1OuwRBVRw/GxHTg80TVJBUTJfoswMmEUeuOg1g1yu1X2dA==
+concurrently@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-5.2.0.tgz#ead55121d08a0fc817085584c123cedec2e08975"
+  integrity sha512-XxcDbQ4/43d6CxR7+iV8IZXhur4KbmEJk1CetVMUqCy34z9l0DkszbY+/9wvmSnToTej0SYomc2WSRH+L0zVJw==
   dependencies:
     chalk "^2.4.2"
     date-fns "^2.0.1"
